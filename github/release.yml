@@ -8,7 +8,10 @@ changelog:
     - title: Breaking Changes
       labels:
         - breaking-change
-    - title: New Features 
+    - title: Bug Fixes:
+      labels:
+          - fixed
+    - title: New Features
       labels:
         - enhancement
     - title: Other Changes
