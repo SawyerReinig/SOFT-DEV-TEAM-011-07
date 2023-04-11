@@ -1,4 +1,4 @@
-Wireframe and use case diagram comoleted; general structure of the project is decided upon.
+Wireframe and use case diagram completed; general structure of the project is decided upon.
 
 Plans for the following week:
 Complete Login Page, Register Page and get database setup for Discover Page.
