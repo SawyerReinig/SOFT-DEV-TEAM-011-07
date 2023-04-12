@@ -15,3 +15,5 @@ Ritu - helped create the wireframe
 Owen - helped create the use case diagram
 Jake - helped create the use case diagram
 Sultan - Added database basic structure
+Ritu - Package json/icebox things
+Jake - working on test case
