@@ -1,0 +1,33 @@
+<%- include ('../partials/head') %>
+<%- include ('../partials/menu') %>
+
+<main>
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Image</th>
+          <th scope="col">Date and Time</th>
+          <th scop="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% 
+        const results = locals.results;
+          results.forEach((event) => { 
+            const eventTime = new Date(event.dates.start.dateTime)
+        %>
+              <tr>
+                  <td><%= event.name %></td>
+                  <td><img src="<%= event.images[0].url %>" style="height: 50%; width: 50%;"></td>
+                  <td><%= eventTime.toLocaleTimeString('en-US') %></td>
+                  <td><a href="<%=event.url %>">Book Event</a></td>
+              </tr>
+          <% }); %>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<%- include ('../partials/footer') %>
