@@ -14,3 +14,4 @@ Sawyer - helped create the wireframe
 Ritu - helped create the wireframe
 Owen - helped create the use case diagram
 Jake - helped create the use case diagram
+Sultan - Added database basic structure
