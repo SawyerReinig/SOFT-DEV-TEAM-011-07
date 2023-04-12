@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS userinfo CASCADE;
-CREATE TABLE IF NOT EXISTS userinfo (
+DROP TABLE IF EXISTS user CASCADE;
+CREATE TABLE IF NOT EXISTS user (
   user_id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(100),
   username VARCHAR(100) NOT NULL,
@@ -24,4 +24,10 @@ DROP TABLE IF EXISTS passes_to_locations;
 CREATE TABLE IF NOT EXISTS locations (
     pass_id INT,
     location_id INT
+);
+
+DROP TABLE IF EXISTS user_to_passes;
+CREATE TABLE IF NOT EXISTS locations (
+    user_id INT,
+    pass_id INT
 );
