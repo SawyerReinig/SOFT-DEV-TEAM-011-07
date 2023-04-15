@@ -8,11 +8,25 @@ const pgp = require('pg-promise')(); // To connect to the Postgres DB from the n
 const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 const bcrypt = require('bcrypt'); //  To hash passwords
-const axios = require('axios'); // To make HTTP requests from our server. We'll learn more about it in Part B.
 
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
 // *****************************************************
+
+const passes = {
+  ikon: {
+    location: "su"
+  },
+  epic: {
+    location: "su"
+  },
+  indy: {
+    location: "su"
+  },
+  mountain_collective: {
+    location: "su"
+  },
+}
 
 // database configuration
 const dbConfig = {
@@ -75,36 +89,66 @@ app.get('/register', (req,res) => {
 
 // Register
 app.post('/register', async (req, res) => {
-  //hash the password using bcrypt library
-  const hash = await bcrypt.hash(req.body.password, 10);
-  const username = req.body.username;
-
-
- 
-  // To-DO: Insert username and hashed password into 'users' table
-  if(hash.err)
+  // deconstruct parameters
+  const {username, password, Ikon:ikon, Epic:epic, Indy:indy, MC:mc } = req.body;
+  console.log(username, password);
+  if(req.body.username === '' || req.body.password === '' || !req.body.username || !req.body.password)
   {
-    console.log('Failed to add User to database!');
+    console.log('Missing Username or Password')
+    res.redirect('/register');
   }
   else
   {
-    const query = `INSERT INTO user_details (username,password) VALUES ('${username}', '${hash}');`;
-    db.none(query).then(data => {
-      res.redirect('/login')
-    }) .catch(err => {
-      console.log(err);
-      res.redirect('/register');
-    });
+    //hash the password using bcrypt library
+    const hash = await bcrypt.hash(password, 10);
+ 
+    // To-DO: Insert username and hashed password into 'users' table
+    if(hash.err)
+    {
+      console.log('Failed to add User to database!');
+      res.redirect("/register");
+    }
+    else
+    {
+      let subq = "";
+      let values = [`'${username}'`, `'${hash}'`]
+      if (ikon) {
+        subq += ", ikon";
+        values.push(true);
+      }
+      if (epic) {
+        subq+= ", epic";
+        values.push(true);
+      }
+      if (indy) {
+        subq+= ", indy";
+        values.push(true);
+      }
+      if (mc) {
+        subq+= ", mountain_collective";
+        values.push(true);
+      }
+      const query = `INSERT INTO users (username, password${subq}) VALUES (${values});`;
+      console.log(query);
+      try {
+        await db.none(query);
+        res.redirect("/login");
+      } catch (error) {
+        console.log(error);
+        res.redirect('/register');
+      }
     
-  }
+    }
 
+  }
+  
   
   
 });
 
 app.post('/login', async function(req,res){
   // check if password from request matches with password in DB 
-  const query = "SELECT password FROM user_details WHERE username = $1;"
+  const query = "SELECT password FROM users WHERE username = $1;"
   const user = await db.one(query, [req.body.username]).catch(err => {
     console.log(err);
     res.redirect("/login");
@@ -141,25 +185,7 @@ const auth = (req, res, next) => {
 app.use(auth);
 
 app.get('/discover', (req,res) => {
-  axios({
-    url: `https://app.ticketmaster.com/discovery/v2/events.json`,
-    method: 'GET',
-    dataType: 'json',
-    headers: {
-      'Accept-Encoding': 'application/json',
-    },
-    params: {
-      "apikey": process.env.API_KEY,
-      "keyword": 'Coldplay',
-      "size": 10,
-    },
-  })
-    .then(results => {
-      res.render('pages/discover', {results: results.data._embedded.events});
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  console.log('lmao')
  });
 
  app.get('/logout', function(req, res) {

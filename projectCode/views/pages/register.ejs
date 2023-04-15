@@ -1,12 +1,10 @@
-<%- include ('../partials/head') %>
-<%- include ('../partials/menu') %>
-
+<%- include ('../partials/header') %>
+<%- include ('../partials/navbar') %>
 <main>
   <div class="container">
     <!-- THE REST OF YOUR HTML CODE GOES HERE -->
     <h2>Register</h2>
     <form action="/register" method="POST">
-        <form>
             <div class="form-group">
               <label for="username">Username</label>
               <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -15,11 +13,30 @@
               <label for="exampleInputPassword1">Password</label>
               <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
+            <div>
+              <label for="checkbox1">Select Passes:</label><br>
+
+              <input type="checkbox" name="Ikon" id="checkbox1">
+              <label for="checkbox1">Ikon</label><br>
+
+              <input type="checkbox" name="Epic" id="checkbox2">
+              <label for="checkbox2">Epic</label><br>
+
+              <input type="checkbox" name="Indy" id="checkbox3">
+              <label for="checkbox3">Indy</label><br>
+
+              <input type="checkbox" name="MC" id="checkbox4">
+              <label for="checkbox4">Mountain Collective</label><br>
+
+              
+            </div>
+            
+
             <p>Have an account already? <a href="/login">Log in</a> here</p>
             <button type="submit" class="btn btn-primary">Register</button>
-          </form>
     </form>
   </div>
 </main>
+
 
 <%- include ('../partials/footer') %>
