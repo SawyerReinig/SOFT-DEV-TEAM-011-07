@@ -8,9 +8,9 @@ CREATE TABLE "users" (
   indy BOOLEAN DEFAULT FALSE,
   mountain_collective BOOLEAN DEFAULT FALSE
   email VARCHAR(100) NOT NULL,
-  city VARCHAR(100) NOT NULL /* , */
-  /* proficiency VARCHAR(100) NOT NULL, */
-  /* pass_id SERIAL FOREIGN KEY references passes(pass_id) */
+  city VARCHAR(100) NOT NULL,
+  proficiency VARCHAR(100) NOT NULL,
+  pass_id SERIAL FOREIGN KEY references passes(pass_id)
 );
 
 DROP TABLE IF EXISTS passes CASCADE;
