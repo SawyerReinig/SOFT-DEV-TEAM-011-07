@@ -128,6 +128,8 @@ app.post('/register', async (req, res) => {
         subq+= ", mountain_collective";
         values.push(true);
       }
+      subq+=", proficiency";
+      values.push(`'${req.body.skill}'`);
       const query = `INSERT INTO users (username, password${subq}) VALUES (${values});`;
       console.log(query);
       try {

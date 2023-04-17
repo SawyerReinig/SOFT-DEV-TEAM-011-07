@@ -7,11 +7,11 @@
                 <form action="/register" method="POST">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                     </div>
                     <div>
                         <label for="checkbox1">Select Passes:</label><br>
@@ -29,22 +29,20 @@
                         <label for="checkbox4">Mountain Collective</label><br>
                     </div>
                     <div>
-                        <label for="checkbox2">Select Profiency:</label><br>
-
-                        <input type="checkbox" name="beginner" id="checkbox1">
-                        <label for="checkbox1">Beginner</label><br>
-
-                        <input type="checkbox" name="developing" id="checkbox2">
-                        <label for="checkbox2">Developing</label><br>
-
-                        <input type="checkbox" name="intermediate" id="checkbox3">
-                        <label for="checkbox3">Intermediate</label><br>
-
-                        <input type="checkbox" name="advanced" id="checkbox4">
-                        <label for="checkbox4">Advanced</label><br>
-                    </div>
-
-
+                      <br>
+                      <br>
+                      Select Proficiency:
+                      <br>
+                      <input type="radio" name="skill" value="Beginner" checked> Beginner
+                      <br>
+                      <input type="radio" name="skill" value="Intermediate"> Intermediate
+                      <br>
+                      <input type="radio" name="skill" value="Advanced"> Advanced
+                      <br>
+                      <input type="radio" name="skill" value="Pro"> Pro
+                      <br>
+                      <br>
+                  </div>
                     <p>Have an account already? <a href="/login">Log in</a> here</p>
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
