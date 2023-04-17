@@ -14,40 +14,40 @@ const bcrypt = require('bcrypt'); //  To hash passwords
 // *****************************************************
 
 const passes = {
-  ikon: {
-    location: "su"
-  },
-  epic: {
-    location: "su"
-  },
-  indy: {
-    location: "su"
-  },
-  mountain_collective: {
-    location: "su"
-  },
+    ikon: {
+        location: "su"
+    },
+    epic: {
+        location: "su"
+    },
+    indy: {
+        location: "su"
+    },
+    mountain_collective: {
+        location: "su"
+    },
 }
 
 // database configuration
 const dbConfig = {
-  host: 'db', // the database server
-  port: 5432, // the database port
-  database: process.env.POSTGRES_DB, // the database name
-  user: process.env.POSTGRES_USER, // the user account to connect with
-  password: process.env.POSTGRES_PASSWORD, // the password of the user account
+    host: 'db', // the database server
+    port: 5432, // the database port
+    database: process.env.POSTGRES_DB, // the database name
+    user: process.env.POSTGRES_USER, // the user account to connect with
+    password: process.env.POSTGRES_PASSWORD, // the password of the user account
 };
 
 const db = pgp(dbConfig);
 
 // test your database
 db.connect()
-  .then(obj => {
-    console.log('Database connection successful'); // you can view this message in the docker compose logs
-    obj.done(); // success, release the connection;
-  })
-  .catch(error => {
-    console.log('ERROR:', error.message || error);
-  });
+    .then(obj => {
+        console.log('Database connection successful'); // you can view this message in the docker compose logs
+        obj.done(); // success, release the connection;
+    })
+    .catch(error => {
+        console.log('ERROR:', error.message || error);
+    });
 
 // *****************************************************
 // <!-- Section 3 : App Settings -->
@@ -58,32 +58,32 @@ app.use(bodyParser.json()); // specify the usage of JSON for parsing request bod
 
 // initialize session variables
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    saveUninitialized: false,
-    resave: false,
-  })
+    session({
+        secret: process.env.SESSION_SECRET,
+        saveUninitialized: false,
+        resave: false,
+    })
 );
 
 app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
+    bodyParser.urlencoded({
+        extended: true,
+    })
 );
 
 // *****************************************************
 // <!-- Section 4 : API Routes -->
 // *****************************************************
 
-app.get('/',(req,res) => {
+app.get('/', (req, res) => {
     res.redirect('/login');
 });
 
-app.get('/login', (req,res) => {
+app.get('/login', (req, res) => {
     res.render("pages/login");
 });
 
-app.get('/register', (req,res) => {
+app.get('/register', (req, res) => {
     res.render('pages/register');
 });
 
@@ -160,53 +160,54 @@ app.post('/login', async function(req,res){
   }  
   const match = await bcrypt.compare(req.body.password, user.password);
 
-  if(match)
-  {
-    //save user details in session like in lab 8
-    req.session.user = user;
-    req.session.save();
-    res.redirect('/discover');
-  }
-  else
-  {
-    res.redirect('/login')
-  }
+    if (match) {
+        //save user details in session like in lab 8
+        req.session.user = user;
+        req.session.save();
+        res.redirect('/discover');
+    } else {
+        res.redirect('/login')
+    }
 
 });
 
 // Authentication Middleware.
 const auth = (req, res, next) => {
-  if (!req.session.user) {
-    // Default to login page.
-    return res.redirect('/login');
-  }
-  next();
+    if (!req.session.user) {
+        // Default to login page.
+        return res.redirect('/login');
+    }
+    next();
 };
 
 // Authentication Required
 app.use(auth);
 
-app.get('/discover', (req,res) => {
-  console.log('lmao')
- });
-
- app.get('/logout', function(req, res) {
-  req.session.destroy(function(err) {
-    if(err) {
-      console.log(err);
-    } else {
-      res.redirect('/login')
-    }
-  });
+app.get('/discover', (req, res) => {
+    console.log('lmao')
 });
- 
+
+app.get('/logout', function(req, res) {
+    req.session.destroy(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/login')
+        }
+    });
+});
+
+// dummy api to test part 8 in lab 11
+app.get('/welcome', (req, res) => {
+    res.json({ status: 'success', message: 'Welcome!' });
+});
 
 // *****************************************************
 // <!-- Section 5 : Start Server-->
 // *****************************************************
 // starting the server and keeping the connection open to listen for more requests
 
-
-
-app.listen(3000);
+// in lab 11, wanting us to replace for node.js easier to debug
+module.exports = app.listen(3000);
+// app.listen(3000);
 console.log('Server is listening on port 3000');
