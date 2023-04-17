@@ -39,7 +39,6 @@ describe('Server!', () => {
                 done();
             });
     });
-
     //We are checking POST /login API by passing the user info in in incorrect manner (name cannot be an integer). This test case should pass and return a status 200 along with a "Invalid input" message.
     it('Negative : /login. Checking invalid name', done => {
         chai
@@ -52,4 +51,7 @@ describe('Server!', () => {
                 done();
             });
     });
+
+    // now testing the /register API!!
+    // must make one for negative and one more positive
 });
