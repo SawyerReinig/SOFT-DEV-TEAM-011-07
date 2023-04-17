@@ -21,7 +21,7 @@ services:
       - '3000:3000'
     volumes:
       - ./projectCode:/home/node/app
-    command: 'npm run dev'
+    command: 'npm run StartAndRun'
     # command: chown -R node:node /home/node/app
 volumes:
   group-project:
