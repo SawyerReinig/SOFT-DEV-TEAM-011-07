@@ -148,7 +148,7 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async function(req,res){
   // check if password from request matches with password in DB 
-  const query = "SELECT password FROM users WHERE username = $1;"
+  const query = "SELECT password FROM users WHERE username = $1 LIMIT 1;"
   const user = await db.one(query, [req.body.username]).catch(err => {
     console.log(err);
     res.redirect("/login");
