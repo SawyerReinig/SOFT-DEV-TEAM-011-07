@@ -51,6 +51,17 @@ describe('Server!', () => {
                 done();
             });
     });
+    it('Positive : /register. Checking valid register of account.', done => {
+        chai
+            .request(server)
+            .post('/register')
+            .send({ username: 'name1', password: 'pass1' })
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.body.message).to.equals('Registered successfully');
+                done();
+            });
+    });
 
     // now testing the /register API!!
     // must make one for negative and one more positive
