@@ -87,4 +87,16 @@ describe('Server!', () => {
     });
     // must make one for negative and one more positive
 
+    //discover testing
+    it('Returns the discover page message', done => {
+        chai
+            .request(server)
+            .get('/discover')
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.body.status).to.equals('success');
+                assert.strictEqual(res.body.message, 'Find others to ride with!');
+                done();
+            });
+    });
 });
