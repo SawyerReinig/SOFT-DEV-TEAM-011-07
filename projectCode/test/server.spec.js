@@ -62,6 +62,17 @@ describe('Server!', () => {
                 done();
             });
     });
+    it('Negative : /register. Checking invalid register', done => {
+        chai
+            .request(server)
+            .post('/register')
+            .send({ username: 'null', password: '' })
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.body.message).to.equals('Invalid input');
+                done();
+            });
+    });
 
     // now testing the /register API!!
     // must make one for negative and one more positive
