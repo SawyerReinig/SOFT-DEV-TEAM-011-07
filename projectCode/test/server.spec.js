@@ -11,10 +11,10 @@ const { assert, expect } = chai;
 
 describe('Server!', () => {
     // Sample test case given to test / endpoint.
-    it('Returns the default welcome message', done => {
+    it('Returns the default home page message', done => {
         chai
             .request(server)
-            .get('/welcome')
+            .get('/login')
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body.status).to.equals('success');
@@ -51,6 +51,18 @@ describe('Server!', () => {
                 done();
             });
     });
+    // now testing the /register API!!
+    it('Returns the register page message', done => {
+        chai
+            .request(server)
+            .get('/register')
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.body.status).to.equals('success');
+                assert.strictEqual(res.body.message, 'Register, or click the button to redirect to login!');
+                done();
+            });
+    });
     it('Positive : /register. Checking valid register of account.', done => {
         chai
             .request(server)
@@ -73,7 +85,6 @@ describe('Server!', () => {
                 done();
             });
     });
-
-    // now testing the /register API!!
     // must make one for negative and one more positive
+
 });
