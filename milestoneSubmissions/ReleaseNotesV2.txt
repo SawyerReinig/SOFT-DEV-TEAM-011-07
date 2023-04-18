@@ -1,1 +1,15 @@
+Login page, register page and database comoleted.
 
+Plans for the following week:
+Complete Discover Page and setup APIS for discover page.
+
+Meeting 2 Notes:
+
+
+Individual Contributions:
+Zack - helped develop the login and register pages
+Sultan - developed database for the website
+Sawyer - fixed directory structure
+Ritu - helped develp the login and register pages
+Owen - helped develop the login and register pages
+Jake - developed base code for testing
