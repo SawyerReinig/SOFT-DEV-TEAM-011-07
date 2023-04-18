@@ -10,6 +10,6 @@ Individual Contributions:
 Zack - helped develop the login and register pages
 Sultan - developed database for the website
 Sawyer - fixed directory structure
-Ritu - helped develp the login and register pages
+Ritu (Sunyojita) - helped develop the login and register pages
 Owen - helped develop the login and register pages
 Jake - developed base code for testing
