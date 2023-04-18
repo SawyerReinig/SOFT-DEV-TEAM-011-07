@@ -7,7 +7,7 @@ services:
       - '5432'
     volumes:
       - group-project:/var/lib/postgresql/data
-      - ./projectCode/init_data:/docker-entrypoint-initdb.d
+      - ./src/init_data:/docker-entrypoint-initdb.d  
   web:
     image: node:lts
     user: root
@@ -20,7 +20,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./projectCode:/home/node/app
+      - ./src:/home/node/app
     command: 'npm run StartAndRun'
     # command: chown -R node:node /home/node/app
 volumes:
