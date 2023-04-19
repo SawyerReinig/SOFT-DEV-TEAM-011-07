@@ -1,0 +1,15 @@
+Login page, register page and database comoleted.
+
+Plans for the following week:
+Complete Discover Page and setup APIS for discover page.
+
+Meeting 2 Notes:
+Login and register pages look great! Need to get discover page and calendar page working before next week's meeting. We could possibly use the Google Calendar API or develop our own. Leaning towards implementing Google Calendar, but that will be something we discuss in the following week.
+
+Individual Contributions:
+Zack - helped develop the login and register pages
+Sultan - developed database for the website
+Sawyer - fixed directory structure
+Ritu (Sunyojita) - helped develop the login and register pages
+Owen - helped develop the login and register pages
+Jake - developed base code for testing
