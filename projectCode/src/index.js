@@ -184,7 +184,7 @@ const auth = (req, res, next) => {
 app.use(auth);
 
 app.get('/discover', (req, res) => {
-    console.log('lmao')
+    console.log('Moving to the discover page')
 });
 
 app.get('/logout', function(req, res) {
