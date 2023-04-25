@@ -73,77 +73,71 @@ app.get('/register', (req, res) => {
 });
 
 // Register
-app.post('/register', async (req, res) => {
-  // deconstruct parameters
-  const {username, password, Ikon:ikon, Epic:epic, Indy:indy, MC:mc } = req.body;
-  console.log(username, password);
-  if(req.body.username === '' || req.body.password === '' || !req.body.username || !req.body.password)
-  {
-    console.log('Missing Username or Password')
-    res.redirect('/register');
-  }
-  else
-  {
-    //hash the password using bcrypt library
-    const hash = await bcrypt.hash(password, 10);
- 
-    // To-DO: Insert username and hashed password into 'users' table
-    if(hash.err)
-    {
-      console.log('Failed to add User to database!');
-      res.redirect("/register");
-    }
-    else
-    {
-      let subq = "";
-      let values = [`'${username}'`, `'${hash}'`]
-      if (ikon) {
-        subq += ", ikon";
-        values.push(true);
-      }
-      if (epic) {
-        subq+= ", epic";
-        values.push(true);
-      }
-      if (indy) {
-        subq+= ", indy";
-        values.push(true);
-      }
-      if (mc) {
-        subq+= ", mountain_collective";
-        values.push(true);
-      }
-      subq+=", proficiency";
-      values.push(`'${req.body.skill}'`);
-      const query = `INSERT INTO users (username, password${subq}) VALUES (${values});`;
-      console.log(query);
-      try {
-        await db.none(query);
-        res.redirect("/login");
-      } catch (error) {
-        console.log(error);
+app.post('/register', async(req, res) => {
+    // deconstruct parameters
+    const { username, password, Ikon: ikon, Epic: epic, Indy: indy, MC: mc } = req.body;
+    console.log(username, password);
+    if (req.body.username === '' || req.body.password === '' || !req.body.username || !req.body.password) {
+        console.log('Missing Username or Password')
         res.redirect('/register');
-      }
-    
+    } else {
+        //hash the password using bcrypt library
+        const hash = await bcrypt.hash(password, 10);
+
+        // To-DO: Insert username and hashed password into 'users' table
+        if (hash.err) {
+            console.log('Failed to add User to database!');
+            res.redirect("/register");
+        } else {
+            let subq = "";
+            let values = [`'${username}'`, `'${hash}'`]
+            if (ikon) {
+                subq += ", ikon";
+                values.push(true);
+            }
+            if (epic) {
+                subq += ", epic";
+                values.push(true);
+            }
+            if (indy) {
+                subq += ", indy";
+                values.push(true);
+            }
+            if (mc) {
+                subq += ", mountain_collective";
+                values.push(true);
+            }
+            subq += ", proficiency";
+            values.push(`'${req.body.skill}'`);
+            const query = `INSERT INTO users (username, password${subq}) VALUES (${values});`;
+            console.log(query);
+            try {
+                await db.none(query);
+                res.redirect("/login");
+            } catch (error) {
+                console.log(error);
+                res.redirect('/register');
+            }
+
+        }
+
     }
 
-  }
-  
-  
-  
+
+
 });
 
-app.post('/login', async function(req,res){
-  // check if password from request matches with password in DB 
-  const query = "SELECT password FROM users WHERE username = $1 LIMIT 1;"
-  const user = await db.one(query, [req.body.username]).catch(err => {
-    console.log(err);
-    res.redirect("/login");
-  });
-  if (!user) {
-    return;
-  }  
-  const match = await bcrypt.compare(req.body.password, user.password);
+app.post('/login', async function(req, res) {
+    // check if password from request matches with password in DB 
+    const query = "SELECT password FROM users WHERE username = $1 LIMIT 1;"
+    const user = await db.one(query, [req.body.username]).catch(err => {
+        console.log(err);
+        res.redirect("/login");
+    });
+    if (!user) {
+        return;
+    }
+    const match = await bcrypt.compare(req.body.password, user.password);
 
     if (match) {
         //save user details in session like in lab 8
