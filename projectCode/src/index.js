@@ -13,21 +13,6 @@ const bcrypt = require('bcrypt'); //  To hash passwords
 // <!-- Section 2 : Connect to DB -->
 // *****************************************************
 
-const passes = {
-    ikon: {
-        location: "su"
-    },
-    epic: {
-        location: "su"
-    },
-    indy: {
-        location: "su"
-    },
-    mountain_collective: {
-        location: "su"
-    },
-}
-
 // database configuration
 const dbConfig = {
     host: 'db', // the database server
@@ -162,7 +147,12 @@ app.post('/login', async function(req,res){
 
     if (match) {
         //save user details in session like in lab 8
-        req.session.user = user;
+        const full_user_query = "SELECT * FROM users WHERE username =$1"
+        const full_user = await db.many(full_user_query, [req.body.username]).catch(err => {
+          console.log(err);
+          res.redirect("/register")
+        })
+        req.session.user = full_user;
         req.session.save();
         res.redirect('/discover');
     } else {
@@ -184,7 +174,48 @@ const auth = (req, res, next) => {
 app.use(auth);
 
 app.get('/discover', (req, res) => {
-    console.log('lmao')
+  console.log(req.session.user)
+  const PassLocationInfo = {
+    ikon: req.session.user[0].ikon,
+    ikonName: 'IKON',
+    ikonUrl: 'https://www.ikonpass.com/en/shop-passes',
+    epic: req.session.user[0].epic,
+    epicName: 'EPIC',
+    epicUrl: 'https://www.epicpass.com/',
+    indy: req.session.user[0].indy,
+    indyName: 'Indy',
+    indyUrl: 'https://www.indyskipass.com/pricing',
+    mountain_collective: req.session.user[0].mountain_collective,
+    mountainCollectiveName: 'Mountain Collective',
+    mountainCollectiveUrl: 'https://mountaincollective.com/',
+    username: req.session.user[0].username,
+    proficiency: req.session.user[0].proficiency
+  };
+  res.render('pages/discover',{PassLocationInfo})
+});
+
+app.post('/updateProficiency', async function(req,res){
+  const update = `UPDATE users SET proficiency = '${req.body.proficiency}' WHERE id = ${req.session.user[0].id} RETURNING *;`
+  const result = await db.one(update).then((user)=>{
+    req.session.user[0] = user;
+    res.redirect("/discover");
+  }).catch(err => {
+    console.log(err);
+    res.redirect("/discover");
+  });
+  
+});
+
+app.post('/updatePass', async function(req,res){
+  const update = `UPDATE users SET ${req.body.pass} = ${req.body.passBool} WHERE id = ${req.session.user[0].id} RETURNING *;`
+  const result = await db.one(update).then((user)=>{
+    req.session.user[0] = user;
+    res.redirect("/discover");
+  }).catch(err => {
+    console.log(err);
+    res.redirect("/discover");
+  });
+  
 });
 
 app.get('/logout', function(req, res) {

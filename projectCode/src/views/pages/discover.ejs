@@ -1,33 +1,124 @@
 <%- include ('../partials/header') %>
 <%- include ('../partials/navbar') %>
 
+
 <main>
   <div class="container">
-    <table class="table">
+    <div>
+      <h2><%= PassLocationInfo.username %></h2>
+      <form method="post" action="/updateProficiency">
+        <p>Proficiency Level:</p>
+        <label>
+          <input type="radio" name="proficiency" value="Beginner" <% if (PassLocationInfo.proficiency === 'Beginner') { %>checked<% } %>>
+          Beginner
+        </label>
+        <br>
+        <label>
+          <input type="radio" name="proficiency" value="Intermediate" <% if (PassLocationInfo.proficiency === 'Intermediate') { %>checked<% } %>>
+          Intermediate
+        </label>
+        <br>
+        <label>
+          <input type="radio" name="proficiency" value="Advanced" <% if (PassLocationInfo.proficiency === 'Advanced') { %>checked<% } %>>
+          Advanced
+        </label>
+        <br>
+        <label>
+          <input type="radio" name="proficiency" value="Pro" <% if (PassLocationInfo.proficiency === 'Pro') { %>checked<% } %>>
+          Pro
+        </label>
+        <br>
+        <input type="hidden" name="username" value="<%= PassLocationInfo.username %>">
+        <button type="submit">Save</button>
+      </form>
+    </div>
+    
+    <table>
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Image</th>
-          <th scope="col">Date and Time</th>
-          <th scop="col"></th>
+          <th>Pass</th>
+          <th>Purhcase Page</th>
+          <th>Has Pass?</th>
         </tr>
       </thead>
       <tbody>
-        <% 
-        const results = locals.results;
-          results.forEach((event) => { 
-            const eventTime = new Date(event.dates.start.dateTime)
-        %>
-              <tr>
-                  <td><%= event.name %></td>
-                  <td><img src="<%= event.images[0].url %>" style="height: 50%; width: 50%;"></td>
-                  <td><%= eventTime.toLocaleTimeString('en-US') %></td>
-                  <td><a href="<%=event.url %>">Book Event</a></td>
-              </tr>
-          <% }); %>
-      </tbody>
+        <tr>
+          <td><%= PassLocationInfo.ikonName %></td>
+          <td>
+            <% if (PassLocationInfo.ikon) { %>
+              <p><em>You already have this pass!</em></p>
+            <% } else { %>
+              <a href="<%= PassLocationInfo.ikonUrl %>">Get <%= PassLocationInfo.ikonNmae %></a>
+            <% } %>
+          </td>
+          <td>
+            <form method="post" action="/updatePass">
+              <input type="hidden" name="pass" value="ikon">
+              <input type="hidden" name="passBool" value=<% if (PassLocationInfo.ikon) { %>false <% }else{ %>true <%}%>>
+              <button type="submit"><% if (PassLocationInfo.ikon) { %>No<% }else { %>Yes<% } %></button>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td><%= PassLocationInfo.epicName %></td>
+          <td>
+            <% if (PassLocationInfo.epic) { %>
+              <p><em>You already have this pass!</em></p>
+            <% } else { %>
+              <a href="<%= PassLocationInfo.epicUrl %>">Get <%= PassLocationInfo.epicName %></a>
+            <% } %>
+          </td>
+          <td>
+            <form method="post" action="/updatePass">
+              <input type="hidden" name="pass" value="epic">
+              <input type="hidden" name="passBool" value=<% if (PassLocationInfo.epic) { %>false <% }else{ %>true <%}%>>
+              <button type="submit"><% if (PassLocationInfo.epic) { %>No<% }else { %>Yes<% } %></button>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td><%= PassLocationInfo.indyName %></td>
+          <td>
+            <% if (PassLocationInfo.indy) { %>
+              <p><em>You already have this pass!</em></p>
+            <% } else { %>
+              <a href="<%= PassLocationInfo.indyUrl %>">Get <%= PassLocationInfo.indyName %></a>
+            <% } %>
+          </td>
+          <td>
+            <form method="post" action="/updatePass">
+              <input type="hidden" name="pass" value="indy">
+              <input type="hidden" name="passBool" value=<% if (PassLocationInfo.indy) { %>false <% }else{ %>true <%}%>>
+              <button type="submit"><% if (PassLocationInfo.indy) { %>No<% }else { %>Yes<% } %></button>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td><%= PassLocationInfo.mountainCollectiveName %></td>
+          <td>
+            <% if (PassLocationInfo.mountain_collective) { %>
+              <p><em>You already have this pass!</em></p>
+            <% } else { %>
+              <a href="<%= PassLocationInfo.mountainCollectiveUrl %>">Get <%= PassLocationInfo.mountainCollectiveName %></a>
+            <% } %>
+          </td>
+          <td>
+            <form method="post" action="/updatePass">
+              <input type="hidden" name="pass" value="mountain_collective">
+              <input type="hidden" name="passBool" value=<% if (PassLocationInfo.mountain_collective) { %>false <% }else{ %>true <%}%>>
+              <button type="submit"><% if (PassLocationInfo.mountain_collective) { %>No<% }else { %>Yes<% } %></button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
     </table>
-  </div>
-</main>
-
-<%- include ('../partials/footer') %>
+        <br>
+        <br>
+        <br>
+          
+        
+        
+        <table>
+          <%- include ('../partials/cards') %>
+        </table>
+      </div>
