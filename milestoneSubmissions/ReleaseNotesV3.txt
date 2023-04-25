@@ -1,1 +1,15 @@
+Discover page now functional, working on implementing the Google Calendar API. Styling added to Login and Register pages.
 
+Plans for the following week:
+Complete calendar and filter pages and add styling to all completed pages.
+
+Meeting 3 Notes:
+
+
+Individual Contributions:
+Zack - added styling to login and register pages.
+Sultan - worked on the basis for the filter page
+Sawyer - worked on the Google Calendar API.
+Ritu (Sunyojita) - worked on the discover page.
+Owen - worked on the discover page.
+Jake - worked on the Google Calendar API.
