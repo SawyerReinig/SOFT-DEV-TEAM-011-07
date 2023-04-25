@@ -4,7 +4,7 @@ Plans for the following week:
 Complete calendar and filter pages and add styling to all completed pages.
 
 Meeting 3 Notes:
-
+Focus on getting the calendar section working. Try Google Calendar API tonight, if it doens't work implement the calendar we used in previous labs.
 
 Individual Contributions:
 Zack - added styling to login and register pages.
