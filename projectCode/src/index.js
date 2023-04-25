@@ -86,6 +86,9 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('pages/register');
 });
+app.get('/calendar', (req, res) => {
+  res.render('pages/calendar');
+});
 
 // Register
 app.post('/register', async (req, res) => {
@@ -185,6 +188,11 @@ app.use(auth);
 
 app.get('/discover', (req, res) => {
     console.log('Moving to the discover page')
+});
+
+app.get('/calendar', (req, res) => {
+    // Default to login page.
+    return res.redirect('/calendar');
 });
 
 app.get('/logout', function(req, res) {
