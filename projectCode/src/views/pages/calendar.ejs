@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,11 +7,11 @@
   </head>
   <body>
     <p>Google Calendar API Quickstart</p>
-
+    
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-
+    <button id="add_event_button" onclick="handleAddEventClick()">Add Event</button>
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <script type="text/javascript">
@@ -18,33 +19,27 @@
       /* exported gisLoaded */
       /* exported handleAuthClick */
       /* exported handleSignoutClick */
-
       // TODO(developer): Set to client ID and API key from the Developer Console
       const CLIENT_ID = '587953326787-gmgobme87vi17ia4u7o5j5nqthgpcrk5.apps.googleusercontent.com';
       const API_KEY = 'AIzaSyDT2CmbSre_tXmjrLWEJvZdN4NOYlZcv-E';
     //   const API_KEY = <%= process.env.API_KEY %>;
-
       // Discovery doc URL for APIs used by the quickstart
       const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
-
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
       const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
-
       let tokenClient;
       let gapiInited = false;
       let gisInited = false;
-
       document.getElementById('authorize_button').style.visibility = 'hidden';
       document.getElementById('signout_button').style.visibility = 'hidden';
-
+      document.getElementById('add_event_button').style.visibility = 'hidden';
       /**
        * Callback after api.js is loaded.
        */
       function gapiLoaded() {
         gapi.load('client', initializeGapiClient);
       }
-
       /**
        * Callback after the API client is loaded. Loads the
        * discovery doc to initialize the API.
@@ -57,7 +52,6 @@
         gapiInited = true;
         maybeEnableButtons();
       }
-
       /**
        * Callback after Google Identity Services are loaded.
        */
@@ -70,7 +64,6 @@
         gisInited = true;
         maybeEnableButtons();
       }
-
       /**
        * Enables user interaction after all libraries are loaded.
        */
@@ -79,7 +72,6 @@
           document.getElementById('authorize_button').style.visibility = 'visible';
         }
       }
-
       /**
        *  Sign in the user upon button click.
        */
@@ -90,9 +82,9 @@
           }
           document.getElementById('signout_button').style.visibility = 'visible';
           document.getElementById('authorize_button').innerText = 'Refresh';
+          document.getElementById('add_event_button').style.visibility = 'visible';
           await listUpcomingEvents();
         };
-
         if (gapi.client.getToken() === null) {
           // Prompt the user to select a Google Account and ask for consent to share their data
           // when establishing a new session.
@@ -102,7 +94,6 @@
           tokenClient.requestAccessToken({prompt: ''});
         }
       }
-
       /**
        *  Sign out the user upon button click.
        */
@@ -114,8 +105,11 @@
           document.getElementById('content').innerText = '';
           document.getElementById('authorize_button').innerText = 'Authorize';
           document.getElementById('signout_button').style.visibility = 'hidden';
+          document.getElementById('add_event_button').style.visibility = 'hidden';
         }
       }
+ 
+
 
       /**
        * Print the summary and start datetime/date of the next ten events in
@@ -138,7 +132,6 @@
           document.getElementById('content').innerText = err.message;
           return;
         }
-
         const events = response.result.items;
         if (!events || events.length == 0) {
           document.getElementById('content').innerText = 'No events found.';

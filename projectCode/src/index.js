@@ -2,6 +2,8 @@
 // <!-- Section 1 : Import Dependencies -->
 // *****************************************************
 
+
+
 const express = require('express'); // To build an application server or API
 const app = express();
 const pgp = require('pg-promise')(); // To connect to the Postgres DB from the node server
@@ -9,9 +11,17 @@ const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 const bcrypt = require('bcrypt'); //  To hash passwords
 
+
+const ejs = require('ejs');
+
+const calendarId = 'primary';
+
+
+
 // *****************************************************
 // <!-- Section 2 : Connect to DB -->
 // *****************************************************
+
 
 const passes = {
     ikon: {
@@ -59,7 +69,7 @@ app.use(bodyParser.json()); // specify the usage of JSON for parsing request bod
 // initialize session variables
 app.use(
     session({
-        secret: process.env.SESSION_SECRET,
+        secret: 'asecretidkey',
         saveUninitialized: false,
         resave: false,
     })
@@ -87,7 +97,7 @@ app.get('/register', (req, res) => {
     res.render('pages/register');
 });
 app.get('/calendar', (req, res) => {
-  res.render('pages/calendar');
+    res.render('pages/calendar');
 });
 
 // Register
@@ -191,9 +201,36 @@ app.get('/discover', (req, res) => {
 });
 
 app.get('/calendar', (req, res) => {
-    // Default to login page.
-    return res.redirect('/calendar');
+    try {
+        calendar.events.list({
+            calendarId: calendarId,
+            timeMin: (new Date()).toISOString(),
+            maxResults: 10,
+            singleEvents: true,
+            orderBy: 'startTime',
+        }, (err, response) => {
+            if (err) {
+                console.log('Error getting calendar events:', err);
+                return res.sendStatus(500);
+            }
+            const events = response.data.items;
+            res.render('calendar', { events: events });
+        });
+    } catch (error) {
+        console.log('Error fetching calendar events:', error);
+        res.sendStatus(500);
+    }
+    return res.redirect('/calendar')
 });
+
+
+
+
+
+
+
+
+
 
 app.get('/logout', function(req, res) {
     req.session.destroy(function(err) {
@@ -209,6 +246,8 @@ app.get('/logout', function(req, res) {
 app.get('/welcome', (req, res) => {
     res.json({ status: 'success', message: 'Welcome!' });
 });
+
+
 
 // *****************************************************
 // <!-- Section 5 : Start Server-->
