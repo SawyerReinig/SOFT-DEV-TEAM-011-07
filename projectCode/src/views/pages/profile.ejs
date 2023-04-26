@@ -1,0 +1,20 @@
+<%- include ('../partials/header') %>
+    <%- include ('../partials/navbar') %>
+
+        <main>
+            <div class="container">
+                <h1>Profile:
+                    <%= user.username %>
+                </h1>
+                <p>Passes:
+                    <%= user.ikon %>
+                        <%= user.epic %>
+                            <%= user.indy %>
+                </p>
+                <p>Proficiency:
+                    <%= user.proficiency %>
+                </p>
+            </div>
+        </main>
+
+        <%- include ('../partials/footer') %>
