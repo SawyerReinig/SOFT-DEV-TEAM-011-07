@@ -4,8 +4,8 @@
 <script> console.log(document.getElementById('myFilter').value); </script>
 <main>
   <div class="container">
-    <div>
-      <h2><%= PassLocationInfo.username %></h2>
+    <div style="font-family: Montserrat;">
+      <center><h1 style="padding-top: 8%; padding-bottom: 8%; font-family: Montserrat;">Welcome, <strong><%= PassLocationInfo.username %></strong>!</h1></center>
       <form method="post" action="/updateProficiency">
         <p>Proficiency Level:</p>
         <label>
@@ -29,19 +29,21 @@
         </label>
         <br>
         <input type="hidden" name="username" value="<%= PassLocationInfo.username %>">
-        <button type="submit">Save</button>
+        <br>
+        <button class="btn btn-outline-success" type="submit">Save</button>
       </form>
     </div>
-    
-    <table>
-      <thead>
+    <br>
+    <br>    
+    <table class="table table-hover">
+      <thead style="font-family: Montserrat;">
         <tr>
           <th>Pass</th>
           <th>Purhcase Page</th>
           <th>Has Pass?</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style="font-family: Montserrat;">
         <tr>
           <td><%= PassLocationInfo.ikonName %></td>
           <td>
@@ -55,7 +57,7 @@
             <form method="post" action="/updatePass">
               <input type="hidden" name="pass" value="ikon">
               <input type="hidden" name="passBool" value=<% if (PassLocationInfo.ikon) { %>false <% }else{ %>true <%}%>>
-              <button type="submit"><% if (PassLocationInfo.ikon) { %>No<% }else { %>Yes<% } %></button>
+              <button class="btn btn-outline-dark" type="submit"><% if (PassLocationInfo.ikon) { %>No<% }else { %>Yes<% } %></button>
             </form>
           </td>
         </tr>
@@ -72,7 +74,7 @@
             <form method="post" action="/updatePass">
               <input type="hidden" name="pass" value="epic">
               <input type="hidden" name="passBool" value=<% if (PassLocationInfo.epic) { %>false <% }else{ %>true <%}%>>
-              <button type="submit"><% if (PassLocationInfo.epic) { %>No<% }else { %>Yes<% } %></button>
+              <button class="btn btn-outline-dark" type="submit"><% if (PassLocationInfo.epic) { %>No<% }else { %>Yes<% } %></button>
             </form>
           </td>
         </tr>
@@ -89,7 +91,7 @@
             <form method="post" action="/updatePass">
               <input type="hidden" name="pass" value="indy">
               <input type="hidden" name="passBool" value=<% if (PassLocationInfo.indy) { %>false <% }else{ %>true <%}%>>
-              <button type="submit"><% if (PassLocationInfo.indy) { %>No<% }else { %>Yes<% } %></button>
+              <button class="btn btn-outline-dark" type="submit"><% if (PassLocationInfo.indy) { %>No<% }else { %>Yes<% } %></button>
             </form>
           </td>
         </tr>
@@ -106,7 +108,7 @@
             <form method="post" action="/updatePass">
               <input type="hidden" name="pass" value="mountain_collective">
               <input type="hidden" name="passBool" value=<% if (PassLocationInfo.mountain_collective) { %>false <% }else{ %>true <%}%>>
-              <button type="submit"><% if (PassLocationInfo.mountain_collective) { %>No<% }else { %>Yes<% } %></button>
+              <button class="btn btn-outline-dark" type="submit"><% if (PassLocationInfo.mountain_collective) { %>No<% }else { %>Yes<% } %></button>
             </form>
           </td>
         </tr>
