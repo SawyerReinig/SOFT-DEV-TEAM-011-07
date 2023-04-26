@@ -11,7 +11,9 @@
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-    <button id="add_event_button" onclick="handleAddEventClick()">Add Event</button>
+    <button id="add_event_button" onclick="handleSignoutClick()">Add Event</button>
+    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FDenver&src=Y19jMDQwZjhhNjYzNTg1MmI1NWFmNzJlZmFhZTBmMmI1ZWE4NDBiMGMxMGJjOWRmYzY2OTQ0YWExNDE2MTFkZGIwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&src=Yzg1Y2ZkNjhmMzAwNTljYjlhOWQyOGQ0OTIxYTY1OTA5ZmY2NDFjNzQ4ZThlOWNlOTYzOTljYzE1ZGIzNWUwYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D81B60&color=%238E24AA" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
     <script type="text/javascript">
@@ -33,7 +35,6 @@
       let gisInited = false;
       document.getElementById('authorize_button').style.visibility = 'hidden';
       document.getElementById('signout_button').style.visibility = 'hidden';
-      document.getElementById('add_event_button').style.visibility = 'hidden';
       /**
        * Callback after api.js is loaded.
        */
@@ -75,6 +76,7 @@
       /**
        *  Sign in the user upon button click.
        */
+      
       function handleAuthClick() {
         tokenClient.callback = async (resp) => {
           if (resp.error !== undefined) {

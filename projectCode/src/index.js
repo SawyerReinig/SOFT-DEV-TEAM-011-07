@@ -201,25 +201,7 @@ app.get('/discover', (req, res) => {
 });
 
 app.get('/calendar', (req, res) => {
-    try {
-        calendar.events.list({
-            calendarId: calendarId,
-            timeMin: (new Date()).toISOString(),
-            maxResults: 10,
-            singleEvents: true,
-            orderBy: 'startTime',
-        }, (err, response) => {
-            if (err) {
-                console.log('Error getting calendar events:', err);
-                return res.sendStatus(500);
-            }
-            const events = response.data.items;
-            res.render('calendar', { events: events });
-        });
-    } catch (error) {
-        console.log('Error fetching calendar events:', error);
-        res.sendStatus(500);
-    }
+   
     return res.redirect('/calendar')
 });
 
