@@ -133,3 +133,22 @@
           <%- include ('../partials/cards') %>
         </table>
       </div>
+
+
+<script>
+document.getElementById("myFilter").addEventListener('change', function() {
+  const selectedFilter = this.value;
+  const cards = document.getElementsByClassName('card');
+  
+  for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
+    const filterType = card.getAttribute('data-filter-type');
+    
+    if (selectedFilter === 'All' || selectedFilter === filterType) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  }
+});
+</script>
