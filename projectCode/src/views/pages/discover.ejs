@@ -50,7 +50,7 @@
             <% if (PassLocationInfo.ikon) { %>
               <p><em>You already have this pass!</em></p>
             <% } else { %>
-              <a href="<%= PassLocationInfo.ikonUrl %>">Get <%= PassLocationInfo.ikonNmae %></a>
+              <a href="<%= PassLocationInfo.ikonUrl %>">Get <%= PassLocationInfo.ikonName %></a>
             <% } %>
           </td>
           <td>
@@ -116,22 +116,19 @@
     </table>
         <br>
         <br>
-
         <select class="form-control" id="myFilter">
           <option>All</option>
-          <option>Winter Park</option>
+          <option>Ikon</option>
           <option>Epic</option>
           <option>Indy</option>
           <option>Mountain</option>
         </select>
         <br>
-        <br>
+        <%- include('../partials/cards') %>
+
+        
           
         
-        
-        <table>
-          <%- include ('../partials/cards') %>
-        </table>
       </div>
 
 
