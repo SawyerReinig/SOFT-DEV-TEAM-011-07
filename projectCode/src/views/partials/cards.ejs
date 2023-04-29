@@ -76,7 +76,7 @@ const cardArray = Object.keys(cardDict).map(function(key) {
     <% cardArray.forEach(function(card) { %>
         <div class="row mb-5">
             <div class="col">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem" data-filter-type="<%= card.filtertype %>">
                     <img class="card-img-top" src="<%= card.image_url %>" alt="IMAGE UNAVAILABLE">
                     <div class="card-body">
                         <h5 class="card-title"><%= card.title %></h5>
