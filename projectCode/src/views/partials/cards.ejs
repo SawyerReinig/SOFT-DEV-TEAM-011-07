@@ -23,10 +23,10 @@ const cardDict = {
     "filtertype": "Indy"
   },
   "card4": {
-    "title": "MOUNTAIN TITLE",
-    "description": "Mountain's Desc",
-    "image_url": "/resources/images/WinterPark.jpg",
-    "url": "https://www.winterparkresort.com/",
+    "title": "Mountain Resort",
+    "description": "Mountain Resort in Colorado is a high-altitude paradise, offering unparalleled panoramic views and top-tier ski trails. Ideal for thrill-seekers and nature lovers, its pristine slopes and cozy lodges create the perfect setting for a rejuvenating getaway. Discover your own mountain nirvana at Mountain Resort.",
+    "image_url": "/resources/images/fourth.png",
+    "url": "https://indyskipass.com/resort/echo-mountain/",
     "filtertype": "Mountain"
   },
   "card6": {
@@ -74,14 +74,18 @@ const cardArray = Object.keys(cardDict).map(function(key) {
 
 <div class="card-deck">
     <% cardArray.forEach(function(card) { %>
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="<%= card.image_url %>" alt="IMAGE UNAVAILABLE">
-            <div class="card-body">
-              <h5 class="card-title"><%= card.title %></h5>
-              <p class="card-text"><%= card.description %></p>
-              <a href="<%= card.url %>" class="btn btn-primary">Learn More</a>
+        <div class="row mb-5">
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="<%= card.image_url %>" alt="IMAGE UNAVAILABLE">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= card.title %></h5>
+                        <p class="card-text"><%= card.description %></p>
+                        <a href="<%= card.url %>" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
 
     <% }); %>
   </div>
