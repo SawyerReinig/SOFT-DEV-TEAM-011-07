@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PassPair Find A Buddy</title>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <p>PassPair Find A Buddy</p>
+
+  <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+  <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+  <button id="add_event_button" onclick="handleSignoutClick()">Add Event</button>
+  <iframe
+    src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FDenver&src=Y19jMDQwZjhhNjYzNTg1MmI1NWFmNzJlZmFhZTBmMmI1ZWE4NDBiMGMxMGJjOWRmYzY2OTQ0YWExNDE2MTFkZGIwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&src=Yzg1Y2ZkNjhmMzAwNTljYjlhOWQyOGQ0OTIxYTY1OTA5ZmY2NDFjNzQ4ZThlOWNlOTYzOTljYzE1ZGIzNWUwYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D81B60&color=%238E24AA"
+    style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+  <pre id="content" style="white-space: pre-wrap;"></pre>
+
+  <script type="text/javascript">
+
+    const CLIENT_ID = '587953326787-gmgobme87vi17ia4u7o5j5nqthgpcrk5.apps.googleusercontent.com';
+    const API_KEY = "AIzaSyDT2CmbSre_tXmjrLWEJvZdN4NOYlZcv-E";
+
+    const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+
+    const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+    let tokenClient;
+    let gapiInited = false;
+    let gisInited = false;
+    document.getElementById('authorize_button').style.visibility = 'hidden';
+    document.getElementById('signout_button').style.visibility = 'hidden';
+    document.getElementById('get_events_button').style.visibility = 'visible';
+
+    function gapiLoaded() {
+      gapi.load('client', initializeGapiClient);
+    }
+
+    async function initializeGapiClient() {
+      await gapi.client.init({
+        API_KEY: API_KEY,
+        discoveryDocs: [DISCOVERY_DOC],
+      });
+      gapiInited = true;
+      maybeEnableButtons();
+    }
+    function gisLoaded() {
+      tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: CLIENT_ID,
+        scope: SCOPES,
+        callback: '', // defined later
+      });
+      gisInited = true;
+      maybeEnableButtons();
+    }
+
+    function maybeEnableButtons() {
+      if (gapiInited && gisInited) {
+        document.getElementById('authorize_button').style.visibility = 'visible';
+      }
+    }
+    function handleAuthClick() {
+      tokenClient.callback = async (resp) => {
+        if (resp.error !== undefined) {
+          throw (resp);
+        }
+        document.getElementById('signout_button').style.visibility = 'visible';
+        document.getElementById('authorize_button').innerText = 'Refresh';
+        document.getElementById('add_event_button').style.visibility = 'visible';
+        await listUpcomingEvents();
+      };
+      if (gapi.client.getToken() === null) {
+
+        tokenClient.requestAccessToken({ prompt: 'consent' });
+      } else {
+
+        tokenClient.requestAccessToken({ prompt: '' });
+      }
+    }
+
+    function handleSignoutClick() {
+      const token = gapi.client.getToken();
+      if (token !== null) {
+        google.accounts.oauth2.revoke(token.access_token);
+        gapi.client.setToken('');
+        document.getElementById('content').innerText = '';
+        document.getElementById('authorize_button').innerText = 'Authorize';
+        document.getElementById('signout_button').style.visibility = 'hidden';
+        document.getElementById('add_event_button').style.visibility = 'hidden';
+      }
+    }
+
+    async function listUpcomingEvents() {
+  let response;
+  try {
+    const request = {
+      'calendarId': 'c_c040f8a6635852b55af72efaae0f2b5ea840b0c10bc9dfc66944aa141611ddb0@group.calendar.google.com',
+      'timeMin': (new Date()).toISOString(),
+      'showDeleted': false,
+      'singleEvents': true,
+      'maxResults': 5,
+      'orderBy': 'startTime',
+    };
+    response = await gapi.client.calendar.events.list(request);
+  } catch (err) {
+    document.getElementById('content').innerText = err.message;
+    return;
+  }
+  const events = response.result.items;
+  if (!events || events.length == 0) {
+    document.getElementById('content').innerText = 'No events found.';
+    return;
+  }
+  // Create list element and append events as list items
+  const ul = document.createElement('ul');
+  events.forEach((event) => {
+    const li = document.createElement('li');
+    const when = event.start.dateTime;
+    const title = event.summary;
+    li.appendChild(document.createTextNode(`${title} (${when})`));
+    ul.appendChild(li);
+  });
+  document.getElementById('content').innerHTML = '';
+  document.getElementById('content').appendChild(ul);
+}
+    listUpcomingEvents();
+  </script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+</body>
+
+</html>
+

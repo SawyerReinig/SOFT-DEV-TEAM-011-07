@@ -99,6 +99,8 @@ app.get('/register', (req, res) => {
 app.get('/calendar', (req, res) => {
     res.render('pages/calendar');
 });
+// In your server-side code
+
 
 // Register
 app.post('/register', async (req, res) => {
@@ -205,6 +207,26 @@ app.get('/calendar', (req, res) => {
     return res.redirect('/calendar')
 });
 
+app.get('/calendar', (req, res) => {
+   // const currentUser = req.user; 
+
+    //User.find({}, (err, users) => {
+     // if (err) {
+     //   console.error(err);
+     //   res.status(500).send('Error retrieving users');
+     // } else {
+     //   const matchingUsers = users.filter(user => user.proficiency === currentUser.proficiency && user.username !== currentUser.username && (user.ikon === currentUser.ikon || user.MC == currentUser.MC || user.epic === currentUser.epic || user.indy === currentUser.indy));
+      //  console.log(matchingUsers.length);
+      //  const randomIndex = Math.floor(Math.random() * matchingUsers.length);
+      //  const matchedUser = matchingUsers[randomIndex];
+      //  console.log(matchedUser);
+  
+        // Render the match page and pass the matched user data to the template engine
+      //  res.render('pages/calendar', { matchedUser });
+      res.render('pages/calendar')
+      //}
+   });
+ // });
 
 
 
