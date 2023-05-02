@@ -3,9 +3,11 @@ Nikita Meetings:
 Meeting 1: 4pm - 4:15pm
 Meeting 2: 4pm - 4:15pm
 Meeting 3: 4pm - 4:10pm
+Meeting 4: 4pm - 4:15pm
 
 Team Meetings:
 
 Meeting 1: 4:15pm - 5:15pm
 Meeting 2: 4:15pm - 4:30pm
-Meeting 3: 4:10 - 4:20pm
+Meeting 3: 4:10pm - 4:20pm
+Meeting 4: 4:15pm - 4:30pm
