@@ -1,0 +1,15 @@
+Calendar page and discover pages are now fully functional.
+
+Plans for the following week:
+Present to the class on Wednesday.
+
+Meeting 4 Notes:
+
+
+Individual Contributions:
+Zack - added styling to calendar and discover pages.
+Sultan - worked on finishing the filter aspect of the discover page.
+Sawyer - worked on finishing the Google Calendar API.
+Ritu (Sunyojita) - worked on our lab write-up and presentation slides.
+Owen - worked on the functionality of the discover page.
+Jake - worked on finishing the Google Calendar API.
