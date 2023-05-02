@@ -1,7 +1,7 @@
 <%- include ('../partials/header') %>
 <%- include ('../partials/navbar') %>
 
-<script> console.log(document.getElementById('myFilter').value); console.log('yayaya');</script>
+<script> console.log(document.getElementById('myFilter').value); </script>
 <main>
   <div class="container">
     <div style="font-family: Montserrat;">
@@ -39,7 +39,7 @@
       <thead style="font-family: Montserrat;">
         <tr>
           <th>Pass</th>
-          <th>Purchase Page</th>
+          <th>Purhcase Page</th>
           <th>Has Pass?</th>
         </tr>
       </thead>
@@ -50,7 +50,7 @@
             <% if (PassLocationInfo.ikon) { %>
               <p><em>You already have this pass!</em></p>
             <% } else { %>
-              <a href="<%= PassLocationInfo.ikonUrl %>">Get <%= PassLocationInfo.ikonName %></a>
+              <a href="<%= PassLocationInfo.ikonUrl %>">Get <%= PassLocationInfo.ikonNmae %></a>
             <% } %>
           </td>
           <td>
@@ -116,34 +116,43 @@
     </table>
         <br>
         <br>
+
         <select class="form-control" id="myFilter">
           <option>All</option>
-          <option>Ikon</option>
+          <option>Winter Park</option>
           <option>Epic</option>
           <option>Indy</option>
           <option>Mountain</option>
         </select>
         <br>
-        <%- include('../partials/cards') %>
-
-        
+        <br>
           
         
+        
+        <table>
+          <%- include ('../partials/cards') %>
+        </table>
       </div>
 
 
 <script>
-document.getElementById("myFilter").addEventListener('change', function() {
-  const selectedFilter = this.value;
-  const cards = document.getElementsByClassName('card');
+document.getElementById("myFilter").addEventListener('change', function() 
+{
+  const theCards = document.getElementsByClassName('card');
+  const theFilter = this.value;
   
-  for (let i = 0; i < cards.length; i++) {
-    const card = cards[i];
+  for (let i = 0; i < theCards.length; i++)
+  {
+    const card = theCards[i];
     const filterType = card.getAttribute('data-filter-type');
     
-    if (selectedFilter === 'All' || selectedFilter === filterType) {
+    if (theFilter === filterType || theFilter === 'All') 
+    {
       card.style.display = '';
-    } else {
+    } 
+    
+    else 
+    {
       card.style.display = 'none';
     }
   }
