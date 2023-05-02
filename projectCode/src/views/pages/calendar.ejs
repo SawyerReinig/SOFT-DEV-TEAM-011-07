@@ -1,26 +1,38 @@
-<%- include ('../partials/header') %>
 <%- include ('../partials/navbar') %>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PassPair Calendar Match</title>
+    <title>PassPair Calendar Match </title>
     <meta charset="utf-8" />
   </head>
   <body>
-    
+    <button onclick="showMatch()">PassPair </button>
+    <div id="matchDetails" style="display:none">
+      <h1 id="username"><%= randomUser.username %></h1>
+
+      <% if (commonPasses.length > 0) { %>
+        <h2>Common Passes:</h2>
+        <ul>
+          <% for (let i = 0; i < commonPasses.length; i++) { %>
+            <li><%= commonPasses[i] %></li>
+          <% } %>
+        </ul>
+      <% } %>
+    </div>
+
     <iframe src="https://calendar.google.com/calendar/embed?src=c_c040f8a6635852b55af72efaae0f2b5ea840b0c10bc9dfc66944aa141611ddb0%40group.calendar.google.com&ctz=America%2FDenver" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-    <% const skiPasses = ['ikon', 'epic', 'indy', 'mountain_collective']; %>
-    <% const matchedUsers = users.filter(user => skiPasses.some(pass => user[pass])); %>
-    <% const randomUser = matchedUsers[Math.floor(Math.random() * matchedUsers.length)]; %>
 
-<div>
-  <h2>Matched User:</h2>
-  <p><strong>Username:</strong> <%= randomUser.username %></p>
-  <p><strong>Proficiency:</strong> <%= randomUser.proficiency %></p>
-  <p><strong>Ski Passes:</strong> <%= skiPasses.filter(pass => randomUser[pass]).join(', ') %></p>
-</div>
-
+    <script>
+      function showMatch() {
+        const matchDetails = document.getElementById("matchDetails");
+        if (matchDetails.style.display === "none") {
+          matchDetails.style.display = "block";
+        } else {
+          matchDetails.style.display = "none";
+        }
+      }
     </script>
   </body>
 </html>
 <%- include ('../partials/footer') %>
+

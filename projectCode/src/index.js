@@ -232,13 +232,33 @@ app.get('/welcome', (req, res) => {
 
 
 
-app.get('/calendar', (req, res) => {
-     return res.render('pages/calendar')
-  });
-
-app.get('/calendar', (req, res) => {
-  return res.redirect('/calendar')
+app.get('/calendar', async (req, res) => {
+  try {
+    const randomUser = await db.one("SELECT * FROM users WHERE id != $1 ORDER BY RANDOM() LIMIT 1", [req.session.user[0].id]);
+    const commonPasses = [];
+    if (req.session.user[0].ikon && randomUser.ikon) {
+      commonPasses.push('Ikon');
+    }
+    if (req.session.user[0].epic && randomUser.epic) {
+      commonPasses.push('Epic');
+    }
+    if (req.session.user[0].indy && randomUser.indy) {
+      commonPasses.push('Indy');
+    }
+    if (req.session.user[0].mountain_collective && randomUser.mountain_collective) {
+      commonPasses.push('Mountain Collective');
+    }
+    
+    res.render('pages/calendar', { randomUser, commonPasses });
+  } catch (error) {
+    console.error(error);
+    res.render('pages/login');
+  }
 });
+
+
+
+
 // *****************************************************
 // <!-- Section 5 : Start Server-->
 // *****************************************************
