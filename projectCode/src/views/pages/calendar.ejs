@@ -1,81 +1,93 @@
 <%- include ('../partials/navbar') %>
-<%- include ('../partials/header') %>
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>PassPair Calendar Match </title>
-    <meta charset="utf-8" />
-    <main style="background-color: rgba(255, 255, 255, 0.603);">
-  <style>
-    body{
-        background-image:url("https://i.pinimg.com/originals/f2/6e/4b/f26e4bdca4723c8d5c040de72ad94b25.jpg");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-     
-      #calendar {
-        flex: 1;
-        margin: 10px;
-      }
-      #match-details-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
-      }
-      #match-details {
-        margin: 10px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-    
-      #passpair-btn {
-        margin-left: 10px;
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: #fff;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      #passpair-btn:hover {
-        background-color: #2980b9;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="calendar-wrapper">
-        <iframe id="calendar" src="https://calendar.google.com/calendar/embed?src=c_c040f8a6635852b55af72efaae0f2b5ea840b0c10bc9dfc66944aa141611ddb0%40group.calendar.google.com&ctz=America%2FDenver" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+  <%- include ('../partials/header') %>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+      <title>PassPair Calendar Match </title>
+      <meta charset="utf-8" />
+      <main style="background-color: rgba(255, 255, 255, 0.603);">
+        <style>
+          body {
+            background-image: url("https://i.pinimg.com/originals/f2/6e/4b/f26e4bdca4723c8d5c040de72ad94b25.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          #calendar {
+            flex: 1;
+            margin: 10px;
+          }
+
+          #match-details-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+          }
+
+          #match-details {
+            margin: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
+
+          #passpair-btn {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+
+          #passpair-btn:hover {
+            background-color: #2980b9;
+          }
+        </style>
+    </head>
+
+    <body>
+      <div id="calendar-wrapper">
+        <iframe id="calendar"
+          src="https://calendar.google.com/calendar/embed?src=c_c040f8a6635852b55af72efaae0f2b5ea840b0c10bc9dfc66944aa141611ddb0%40group.calendar.google.com&ctz=America%2FDenver"
+          style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
         <br>
         <button id="passpair-btn" onclick="showMatch()">PassPair </button>
       </div>
-      
-    <div id="match-details-wrapper" style="display:none">
-      <div id="match-details">
-        <h1 id="username"><%= randomUser.username %></h1>
-        <% if (commonPasses.length > 0) { %>
-          <h2>Common Passes:</h2>
-          <ul>
-            <% for (let i = 0; i < commonPasses.length; i++) { %>
-              <li><%= commonPasses[i] %></li>
+
+      <div id="match-details-wrapper" style="display:none">
+        <div id="match-details">
+          <h1 id="username">
+            <%= randomUser.username %>
+          </h1>
+          <% if (commonPasses.length> 0) { %>
+            <h2>Common Passes:</h2>
+            <ul>
+              <% for (let i=0; i < commonPasses.length; i++) { %>
+                <li>
+                  <%= commonPasses[i] %>
+                </li>
+                <% } %>
+            </ul>
             <% } %>
-          </ul>
-        <% } %>
+        </div>
       </div>
-    </div>
-    <script>
-      function showMatch() {
-        const matchDetailsWrapper = document.getElementById("match-details-wrapper");
-        if (matchDetailsWrapper.style.display === "none") {
-          matchDetailsWrapper.style.display = "block";
-        } else {
-          matchDetailsWrapper.style.display = "none";
+      <script>
+        function showMatch() {
+          const matchDetailsWrapper = document.getElementById("match-details-wrapper");
+          if (matchDetailsWrapper.style.display === "none") {
+            matchDetailsWrapper.style.display = "block";
+          } else {
+            matchDetailsWrapper.style.display = "none";
+          }
         }
-      }
-    </script>
-  </body>
-</html>
-<%- include ('../partials/footer') %>
+      </script>
+    </body>
+
+    </html>
+    <%- include ('../partials/footer') %>
