@@ -45,7 +45,7 @@ app.use(bodyParser.json()); // specify the usage of JSON for parsing request bod
 // initialize session variables
 app.use(
     session({
-        secret: process.env.SESSION_SECRET,
+        secret: "secretpwd",
         saveUninitialized: false,
         resave: false,
     })
@@ -230,6 +230,15 @@ app.get('/welcome', (req, res) => {
     res.json({ status: 'success', message: 'Welcome!' });
 });
 
+
+
+app.get('/calendar', (req, res) => {
+     return res.render('pages/calendar')
+  });
+
+app.get('/calendar', (req, res) => {
+  return res.redirect('/calendar')
+});
 // *****************************************************
 // <!-- Section 5 : Start Server-->
 // *****************************************************
